@@ -76,6 +76,11 @@ namespace __Game.Resources.Scripts.EventBus
     public struct IncorrectCancelEvent : IEvent { }
     #endregion
 
+    #region Game
+    public struct WinEvent : IEvent { }
+    public struct LoseEvent : IEvent { }
+    #endregion
+
     #region ScoreManager
     public struct LevelPointEvent : IEvent
     {

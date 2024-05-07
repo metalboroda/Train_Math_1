@@ -312,6 +312,8 @@ MonoBehaviour:
   _cartPrefab: {fileID: 8887499532012225999, guid: 5e04359fc2a21784da9cd976f9155b14, type: 3}
   _answerObject: {fileID: 7544996862184227740, guid: 337e83cfe79630c49b5b8b38cc8921df, type: 3}
   _answers: []
+  _tutorial: 0
+  _tutorialFinger: {fileID: 5557481414137395441, guid: c90005eb655a8a34f8fb58a4d074dee5, type: 3}
 --- !u!114 &8224751072068705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trainMovementSpeed: 10
   _trainFirstPoint: {x: 0, y: 0, z: 0}
+  _trainSecondPoint: {x: 0, y: 0, z: 0}
   _wheelsRotationSpeed: 500
   _wheelsRotationDirection: {x: 360, y: 0, z: 0}
   _wheels:

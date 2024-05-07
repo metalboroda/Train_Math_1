@@ -39,6 +39,8 @@ namespace Assets.__Game.Resources.Scripts.Variant
       _emptyVariantsCounter = CountVariantsWithSpriteHidden();
 
       InitVariants();
+
+      EventBus<EventStructs.ComponentEvent<VariantBoard>>.Raise(new EventStructs.ComponentEvent<VariantBoard> { Data = this });
     }
 
     private void Update()
@@ -102,6 +104,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
       if (_correctAnswersCounter == _emptyVariantsCounter)
       {
         Debug.Log("Win");
+        EventBus<EventStructs.WinEvent>.Raise(new EventStructs.WinEvent());
 
         return;
       }
@@ -117,6 +120,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
       if (_incorrectAnswerCounter == _emptyVariantsCounter)
       {
         Debug.Log("Lose");
+        EventBus<EventStructs.LoseEvent>.Raise(new EventStructs.LoseEvent());
 
         return;
       }
@@ -126,10 +130,19 @@ namespace Assets.__Game.Resources.Scripts.Variant
     {
       if (_overallAnswersCounter == _emptyVariantsCounter)
       {
-        if (_correctAnswersCounter < _emptyVariantsCounter) { }
+        if (_correctAnswersCounter < _emptyVariantsCounter)
+          EventBus<EventStructs.LoseEvent>.Raise(new EventStructs.LoseEvent());
 
         else if (_incorrectAnswerCounter < _emptyVariantsCounter) { }
       }
+    }
+
+    public Transform GetLastVariantObjectTransform()
+    {
+      if (_variantObjects != null && _variantObjects.Length > 0)
+        return _variantObjects[_variantObjects.Length - 1].transform;
+
+      return null;
     }
   }
 }

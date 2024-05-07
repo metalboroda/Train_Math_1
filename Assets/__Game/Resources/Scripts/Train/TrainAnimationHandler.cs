@@ -9,11 +9,24 @@ namespace Assets.__Game.Resources.Scripts.Train
     [Header("Train")]
     [SerializeField] private float _trainMovementSpeed;
     [SerializeField] private Vector3 _trainFirstPoint;
+    [SerializeField] private Vector3 _trainSecondPoint;
     [Header("Wheels")]
     [SerializeField] private float _wheelsRotationSpeed;
     [SerializeField] private Vector3 _wheelsRotationDirection;
     [Space]
     [SerializeField] private GameObject[] _wheels;
+
+    private EventBinding<EventStructs.WinEvent> _winEvent;
+
+    private void OnEnable()
+    {
+      _winEvent = new EventBinding<EventStructs.WinEvent>(MoveTrainToSecondPoin);
+    }
+
+    private void OnDisable()
+    {
+      _winEvent.Remove(MoveTrainToSecondPoin);
+    }
 
     private void Start()
     {
@@ -26,6 +39,20 @@ namespace Assets.__Game.Resources.Scripts.Train
       EventBus<EventStructs.TrainMovementEvent>.Raise(new EventStructs.TrainMovementEvent { IsMoving = true });
 
       transform.DOMove(_trainFirstPoint, _trainMovementSpeed)
+        .SetSpeedBased(true)
+        .OnComplete(() =>
+        {
+          RotateWheels(false);
+
+          EventBus<EventStructs.TrainMovementEvent>.Raise(new EventStructs.TrainMovementEvent { IsMoving = false });
+        });
+    }
+
+    private void MoveTrainToSecondPoin(EventStructs.WinEvent winEvent)
+    {
+      EventBus<EventStructs.TrainMovementEvent>.Raise(new EventStructs.TrainMovementEvent { IsMoving = true });
+
+      transform.DOMove(_trainSecondPoint, _trainMovementSpeed * 1.5f)
         .SetSpeedBased(true)
         .OnComplete(() =>
         {
