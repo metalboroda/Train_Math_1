@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trainMovementSpeed: 5
   _trainFirstPoint: {x: 0, y: 0, z: 0}
-  _wheelsRotationSpeed: 200
+  _wheelsRotationSpeed: 250
   _wheelsRotationDirection: {x: 360, y: 0, z: 0}
   _wheels:
   - {fileID: 3615295899876001832}
