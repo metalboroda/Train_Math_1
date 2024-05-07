@@ -310,7 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cartJoint: {fileID: 3231867314931743644}
   _cartPrefab: {fileID: 8887499532012225999, guid: 5e04359fc2a21784da9cd976f9155b14, type: 3}
-  _cartAmount: 0
+  _answerObject: {fileID: 7544996862184227740, guid: 337e83cfe79630c49b5b8b38cc8921df, type: 3}
+  _answers: []
 --- !u!114 &8224751072068705
 MonoBehaviour:
   m_ObjectHideFlags: 0
