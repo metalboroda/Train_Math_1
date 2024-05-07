@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 429925920}
   - component: {fileID: 429925919}
   - component: {fileID: 429925918}
+  - component: {fileID: 429925921}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +208,22 @@ Transform:
   m_Father: {fileID: 883768083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &429925921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429925917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &732450271
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +557,7 @@ MonoBehaviour:
   - <VariantSprite>k__BackingField: {fileID: 21300000, guid: b202d7be579b3304c82a9b47ea3bff36, type: 3}
     ShowSprite: 1
   - <VariantSprite>k__BackingField: {fileID: 21300000, guid: 4e4ecdd337254bf44bfe475dd36e6a0a, type: 3}
-    ShowSprite: 1
+    ShowSprite: 0
   _variantObjects:
   - {fileID: 5941553089964036259}
   - {fileID: 1571695981}
@@ -684,6 +701,22 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b202d7be579b3304c82a9b47ea3bff36, type: 3}
     - target: {fileID: 2691260317055213875, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}
       propertyPath: _answers.Array.data[3].AnswerSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e4ecdd337254bf44bfe475dd36e6a0a, type: 3}
+    - target: {fileID: 2691260317055213875, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}
+      propertyPath: _answers.Array.data[0].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: d02dc6e0733b9664a88e052452b3bebf, type: 3}
+    - target: {fileID: 2691260317055213875, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}
+      propertyPath: _answers.Array.data[1].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 0b2166847cdbb4d4cabcfe42995340de, type: 3}
+    - target: {fileID: 2691260317055213875, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}
+      propertyPath: _answers.Array.data[2].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: b202d7be579b3304c82a9b47ea3bff36, type: 3}
+    - target: {fileID: 2691260317055213875, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}
+      propertyPath: _answers.Array.data[3].<AnswerSprite>k__BackingField
       value: 
       objectReference: {fileID: 21300000, guid: 4e4ecdd337254bf44bfe475dd36e6a0a, type: 3}
     - target: {fileID: 4937211823137545323, guid: 64719eaa9abb40e4abdf68c2035c63ff, type: 3}

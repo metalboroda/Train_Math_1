@@ -324,9 +324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c01ad7b9e49c74d904ae698df51fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trainMovementSpeed: 5
+  _trainMovementSpeed: 10
   _trainFirstPoint: {x: 0, y: 0, z: 0}
-  _wheelsRotationSpeed: 250
+  _wheelsRotationSpeed: 500
   _wheelsRotationDirection: {x: 360, y: 0, z: 0}
   _wheels:
   - {fileID: 3615295899876001832}

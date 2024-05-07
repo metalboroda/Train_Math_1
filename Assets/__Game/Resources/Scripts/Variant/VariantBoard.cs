@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using __Game.Resources.Scripts.EventBus;
+using UnityEngine;
 
 namespace Assets.__Game.Resources.Scripts.Variant
 {
@@ -13,8 +14,30 @@ namespace Assets.__Game.Resources.Scripts.Variant
     [Space]
     [SerializeField] private Variant[] _variantObjects;
 
+    private int _emptyVariantsCounter;
+    private int _overallAnswersCounter;
+    private int _correctAnswersCounter;
+    private int _incorrectAnswerCounter;
+
+    private EventBinding<EventStructs.CorrectAnswerEvent> _correctAnswerEvent;
+    private EventBinding<EventStructs.IncorrectCancelEvent> _incorrectAnswerEvent;
+
+    private void OnEnable()
+    {
+      _correctAnswerEvent = new EventBinding<EventStructs.CorrectAnswerEvent>(ReceiveCorrectAnswer);
+      _incorrectAnswerEvent = new EventBinding<EventStructs.IncorrectCancelEvent>(ReceiveIncorrectAnswer);
+    }
+
+    private void OnDisable()
+    {
+      _correctAnswerEvent.Remove(ReceiveCorrectAnswer);
+      _incorrectAnswerEvent.Remove(ReceiveIncorrectAnswer);
+    }
+
     private void Start()
     {
+      _emptyVariantsCounter = CountVariantsWithSpriteHidden();
+
       InitVariants();
     }
 
@@ -54,6 +77,58 @@ namespace Assets.__Game.Resources.Scripts.Variant
         currentSprite = _variantItems[i].VariantSprite;
 
         _variantObjects[i].SetSpriteAndImage(currentSprite, _variantItems[i].ShowSprite);
+      }
+    }
+
+    public int CountVariantsWithSpriteHidden()
+    {
+      int count = 0;
+
+      foreach (VariantItem item in _variantItems)
+      {
+        if (item.ShowSprite == false)
+        {
+          count++;
+        }
+      }
+      return count;
+    }
+
+    private void ReceiveCorrectAnswer(EventStructs.CorrectAnswerEvent correctAnswerEvent)
+    {
+      _overallAnswersCounter++;
+      _correctAnswersCounter++;
+
+      if (_correctAnswersCounter == _emptyVariantsCounter)
+      {
+        Debug.Log("Win");
+
+        return;
+      }
+
+      CheckOverallAnswer();
+    }
+
+    private void ReceiveIncorrectAnswer(EventStructs.IncorrectCancelEvent incorrectCancelEvent)
+    {
+      _overallAnswersCounter++;
+      _incorrectAnswerCounter++;
+
+      if (_incorrectAnswerCounter == _emptyVariantsCounter)
+      {
+        Debug.Log("Lose");
+
+        return;
+      }
+    }
+
+    private void CheckOverallAnswer()
+    {
+      if (_overallAnswersCounter == _emptyVariantsCounter)
+      {
+        if (_correctAnswersCounter < _emptyVariantsCounter) { }
+
+        else if (_incorrectAnswerCounter < _emptyVariantsCounter) { }
       }
     }
   }
