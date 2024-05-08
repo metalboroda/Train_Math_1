@@ -76,6 +76,7 @@ namespace Assets.__Game.Resources.Scripts.Management
     private EventBinding<EventStructs.StateChanged> _stateChanged;
     private EventBinding<EventStructs.BalloonSpawnerEvent> _balloonSpawnerEvent;
     private EventBinding<EventStructs.BalloonReceiveEvent> _balloonReceivedEvent;
+    private EventBinding<EventStructs.VariantsAssignedEvent> _variantsAssignedEvent;
 
     private void Awake()
     {
@@ -91,8 +92,9 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged = new EventBinding<EventStructs.StateChanged>(SwitchCanvasesDependsOnState);
       _balloonSpawnerEvent = new EventBinding<EventStructs.BalloonSpawnerEvent>(SetOverallScore);
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayScore);
-      _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayCorrectValuesArray);
+      //_balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayCorrectValuesArray);
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(IconScaleAnimation);
+      _variantsAssignedEvent = new EventBinding<EventStructs.VariantsAssignedEvent>(DisplayLevelCounter);
     }
 
     private void OnDisable()
@@ -101,8 +103,9 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged.Remove(SwitchCanvasesDependsOnState);
       _balloonSpawnerEvent.Remove(SetOverallScore);
       _balloonReceivedEvent.Remove(DisplayScore);
-      _balloonReceivedEvent.Remove(DisplayCorrectValuesArray);
+      //_balloonReceivedEvent.Remove(DisplayCorrectValuesArray);
       _balloonReceivedEvent.Remove(IconScaleAnimation);
+      _variantsAssignedEvent.Remove(DisplayLevelCounter);
     }
 
     private void Start()
@@ -224,7 +227,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       }
     }
 
-    private void DisplayLevelCounter()
+    private void DisplayLevelCounter(EventStructs.VariantsAssignedEvent variantsAssignedEvent)
     {
       if (_gameSettings.OverallLevelIndex == 0)
         _questLevelCounterText.text = $"НАВЧАЛЬНИЙ РІВЕНЬ";
@@ -237,7 +240,7 @@ namespace Assets.__Game.Resources.Scripts.Management
         _pauseLevelCounterText.text = $"РІВЕНЬ {_gameSettings.OverallLevelIndex}";
     }
 
-    private void DisplayCorrectValuesArray(EventStructs.BalloonReceiveEvent balloonReceivedEvent)
+    /*private void DisplayCorrectValuesArray(EventStructs.BalloonReceiveEvent balloonReceivedEvent)
     {
       if (balloonReceivedEvent.CorrectValues == null) return;
 
@@ -255,7 +258,7 @@ namespace Assets.__Game.Resources.Scripts.Management
 
       _questCorrectNumbersTxt.text = arrayString;
       _pauseCorrectNumbersTxt.text = arrayString;
-    }
+    }*/
 
     private void IconScaleAnimation(EventStructs.BalloonReceiveEvent balloonReceivedEvent)
     {

@@ -9,6 +9,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
   public class Variant : MonoBehaviour
   {
     [SerializeField] private Image _variantImage;
+    [SerializeField] private GameObject _unknownTextObject;
     [Space]
     [SerializeField] private Color _transparentColor;
 
@@ -23,9 +24,15 @@ namespace Assets.__Game.Resources.Scripts.Variant
       ShowSprite = showSprite;
 
       if (showSprite == true)
+      {
         _variantImage.sprite = VariantSprite;
+        _unknownTextObject.SetActive(false);
+      }
       else
+      {
         _variantImage.color = _transparentColor;
+        _unknownTextObject.SetActive(true);
+      }
     }
 
     public void Place(Answer answerToPlace)
@@ -40,6 +47,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
 
       ShowSprite = true;
       ReceivedAnswer = answerToPlace.AnswerSprite;
+      _unknownTextObject.SetActive(false);
     }
 
     private void CheckForCorrectAnswer()

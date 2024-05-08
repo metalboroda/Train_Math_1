@@ -72,6 +72,7 @@ namespace __Game.Resources.Scripts.EventBus
     #endregion
 
     #region Variants&Answers
+    public struct VariantsAssignedEvent : IEvent { }
     public struct CorrectAnswerEvent : IEvent { }
     public struct IncorrectCancelEvent : IEvent { }
     #endregion

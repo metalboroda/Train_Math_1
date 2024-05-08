@@ -90,6 +90,8 @@ namespace Assets.__Game.Resources.Scripts.Variant
 
         _variantObjects[i].SetSpriteAndImage(currentSprite, _variantItems[i].ShowSprite);
       }
+
+      EventBus<EventStructs.VariantsAssignedEvent>.Raise(new EventStructs.VariantsAssignedEvent());
     }
 
     public int CountVariantsWithSpriteHidden()
