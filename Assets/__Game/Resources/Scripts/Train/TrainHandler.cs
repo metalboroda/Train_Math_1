@@ -76,7 +76,8 @@ namespace Assets.__Game.Resources.Scripts.Train
 
     private void Tutorial(EventStructs.TrainMovementEvent trainMovementEvent)
     {
-      if (_tutorial == false || _tutorialCompleted == true) return;
+      if (_tutorial == false) return;
+      if (_tutorialCompleted == true) return;
       if (trainMovementEvent.IsMoving == true) return;
 
       Vector3 startPosition = new Vector3(
@@ -93,6 +94,8 @@ namespace Assets.__Game.Resources.Scripts.Train
 
     private void StopTutorial(EventStructs.WinEvent winEvent)
     {
+      if (_tutorial == false) return;
+
       DOTween.Kill(_spawnedTutorialFinger.transform);
       Destroy(_spawnedTutorialFinger);
 

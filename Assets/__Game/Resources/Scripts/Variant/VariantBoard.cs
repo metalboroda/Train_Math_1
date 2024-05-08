@@ -1,4 +1,7 @@
 ﻿using __Game.Resources.Scripts.EventBus;
+using Assets.__Game.Resources.Scripts.Game.States;
+using Assets.__Game.Scripts.Infrastructure;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.__Game.Resources.Scripts.Variant
@@ -19,8 +22,15 @@ namespace Assets.__Game.Resources.Scripts.Variant
     private int _correctAnswersCounter;
     private int _incorrectAnswerCounter;
 
+    private GameBootstrapper _gameBootstrapper;
+
     private EventBinding<EventStructs.CorrectAnswerEvent> _correctAnswerEvent;
     private EventBinding<EventStructs.IncorrectCancelEvent> _incorrectAnswerEvent;
+
+    private void Awake()
+    {
+      _gameBootstrapper = GameBootstrapper.Instance;
+    }
 
     private void OnEnable()
     {
@@ -59,7 +69,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
       }
     }
 
-    void RearrangeChildren()
+    private void RearrangeChildren()
     {
       float currentXPosition = 0f;
 
@@ -106,6 +116,8 @@ namespace Assets.__Game.Resources.Scripts.Variant
         Debug.Log("Win");
         EventBus<EventStructs.WinEvent>.Raise(new EventStructs.WinEvent());
 
+        StartCoroutine(DoChangeWinLoseGameStateWithDelay(true, 1.5f));
+
         return;
       }
 
@@ -121,6 +133,8 @@ namespace Assets.__Game.Resources.Scripts.Variant
       {
         Debug.Log("Lose");
         EventBus<EventStructs.LoseEvent>.Raise(new EventStructs.LoseEvent());
+
+        StartCoroutine(DoChangeWinLoseGameStateWithDelay(false, 0));
 
         return;
       }
@@ -143,6 +157,16 @@ namespace Assets.__Game.Resources.Scripts.Variant
         return _variantObjects[_variantObjects.Length - 1].transform;
 
       return null;
+    }
+
+    private IEnumerator DoChangeWinLoseGameStateWithDelay(bool win, float delay)
+    {
+      yield return new WaitForSeconds(delay);
+
+      if (win== true)
+        _gameBootstrapper.StateMachine.ChangeState(new GameWinState(_gameBootstrapper));
+      else
+        _gameBootstrapper.StateMachine.ChangeState(new GameLoseState(_gameBootstrapper));
     }
   }
 }
