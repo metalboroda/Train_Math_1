@@ -7,6 +7,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 461857237510751351, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383494424573651556, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _answers.Array.data[0].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 32464a27adf51e2469450cb26fe17659, type: 3}
+    - target: {fileID: 5383494424573651556, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _answers.Array.data[1].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: e417138ab2e25c247810ccac98c15d90, type: 3}
+    - target: {fileID: 5383494424573651556, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _answers.Array.data[2].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 291d8d2bd07776347a07a82e1a5dddec, type: 3}
+    - target: {fileID: 5383494424573651556, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _answers.Array.data[3].<AnswerSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 04619e420f0cff54e81d274501c5997b, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[0].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 04619e420f0cff54e81d274501c5997b, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[1].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 32464a27adf51e2469450cb26fe17659, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[2].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 291d8d2bd07776347a07a82e1a5dddec, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[3].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 04619e420f0cff54e81d274501c5997b, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[4].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 32464a27adf51e2469450cb26fe17659, type: 3}
+    - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: _variantItems.Array.data[5].<VariantSprite>k__BackingField
+      value: 
+      objectReference: {fileID: 21300000, guid: 291d8d2bd07776347a07a82e1a5dddec, type: 3}
     - target: {fileID: 8974865716766051753, guid: a454cc821da5e1b419971d0230763865, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -26,6 +26,7 @@ namespace Assets.__Game.Scripts.Tools
     private void ScaleBackground()
     {
       if (_spriteRenderer == null || _mainCamera == null) return;
+      if (_spriteRenderer.sprite == null) return;
 
       float spriteWidth = _spriteRenderer.sprite.bounds.size.x;
       float spriteHeight = _spriteRenderer.sprite.bounds.size.y;
