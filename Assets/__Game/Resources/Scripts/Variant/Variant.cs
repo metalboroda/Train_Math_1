@@ -12,6 +12,9 @@ namespace Assets.__Game.Resources.Scripts.Variant
     [SerializeField] private GameObject _unknownTextObject;
     [Space]
     [SerializeField] private Color _transparentColor;
+    [Header("Effects")]
+    [SerializeField] private GameObject _correctParticlesPrefab;
+    [SerializeField] private GameObject _incorrectParticlesPrefab;
 
     public bool ShowSprite { get; private set; }
     public Sprite VariantSprite { get; private set; }
@@ -55,11 +58,20 @@ namespace Assets.__Game.Resources.Scripts.Variant
       if (VariantSprite == ReceivedAnswer)
       {
         EventBus<EventStructs.CorrectAnswerEvent>.Raise(new EventStructs.CorrectAnswerEvent());
+
+        SpawnParticles(_correctParticlesPrefab);
       }
       else
       {
         EventBus<EventStructs.IncorrectCancelEvent>.Raise(new EventStructs.IncorrectCancelEvent());
+
+        SpawnParticles(_incorrectParticlesPrefab);
       }
+    }
+
+    private void SpawnParticles(GameObject particlesPrefab)
+    {
+      Instantiate(particlesPrefab, transform.position, Quaternion.identity);
     }
   }
 }

@@ -247,6 +247,8 @@ MonoBehaviour:
   _variantImage: {fileID: 3571906379233723239}
   _unknownTextObject: {fileID: 8024316329723704894}
   _transparentColor: {r: 1, g: 1, b: 1, a: 0}
+  _correctParticlesPrefab: {fileID: 6324248135578473576, guid: fb10678b7def34d4e861c4d11cb8050a, type: 3}
+  _incorrectParticlesPrefab: {fileID: 6324248135578473576, guid: 0b1f3dc34904282408d8447cfe14744b, type: 3}
 --- !u!1 &5941553091079249959
 GameObject:
   m_ObjectHideFlags: 0
