@@ -15,6 +15,8 @@ namespace Assets.__Game.Resources.Scripts.Management
 {
   public class GameUiManager : MonoBehaviour
   {
+    [SerializeField] private AudioSource _audioSource;
+
     [Header("Quest Canvas")]
     [SerializeField] private GameObject _questCanvas;
     [Space]
@@ -42,8 +44,7 @@ namespace Assets.__Game.Resources.Scripts.Management
     [SerializeField] private Button _winNextLevelBtn;
     [SerializeField] private Button _winRewardButton;
     [SerializeField] private GameObject _winPerfectText;
-    [SerializeField] private ParticleSystem[] _winPerfectParticles;
-    [SerializeField] private AudioSource _winPerfectSound;
+    [SerializeField] private AudioClip _winPerfectSound;
 
     [Header("Lose Canvas")]
     [SerializeField] private GameObject _loseCanvas;
@@ -92,7 +93,6 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged = new EventBinding<EventStructs.StateChanged>(SwitchCanvasesDependsOnState);
       _balloonSpawnerEvent = new EventBinding<EventStructs.BalloonSpawnerEvent>(SetOverallScore);
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayScore);
-      //_balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayCorrectValuesArray);
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(IconScaleAnimation);
       _variantsAssignedEvent = new EventBinding<EventStructs.VariantsAssignedEvent>(DisplayLevelCounter);
     }
@@ -103,7 +103,6 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged.Remove(SwitchCanvasesDependsOnState);
       _balloonSpawnerEvent.Remove(SetOverallScore);
       _balloonReceivedEvent.Remove(DisplayScore);
-      //_balloonReceivedEvent.Remove(DisplayCorrectValuesArray);
       _balloonReceivedEvent.Remove(IconScaleAnimation);
       _variantsAssignedEvent.Remove(DisplayLevelCounter);
     }
@@ -158,13 +157,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       {
         _winPerfectText.gameObject.SetActive(false);
         _winRewardButton.gameObject.SetActive(false);
-
-        foreach (var particle in _winPerfectParticles)
-        {
-          particle.gameObject.SetActive(false);
-        }
-
-        _winPerfectSound.gameObject.SetActive(false);
+        //_winPerfectSound.gameObject.SetActive(false);
       });
 
       // Lose
@@ -240,26 +233,6 @@ namespace Assets.__Game.Resources.Scripts.Management
         _pauseLevelCounterText.text = $"РІВЕНЬ {_gameSettings.OverallLevelIndex}";
     }
 
-    /*private void DisplayCorrectValuesArray(EventStructs.BalloonReceiveEvent balloonReceivedEvent)
-    {
-      if (balloonReceivedEvent.CorrectValues == null) return;
-
-      string arrayString = "";
-
-      for (int i = 0; i < balloonReceivedEvent.CorrectValues.Length; i++)
-      {
-        arrayString += balloonReceivedEvent.CorrectValues[i];
-
-        if (i < balloonReceivedEvent.CorrectValues.Length - 1)
-          arrayString += " ";
-      }
-
-      DisplayLevelCounter();
-
-      _questCorrectNumbersTxt.text = arrayString;
-      _pauseCorrectNumbersTxt.text = arrayString;
-    }*/
-
     private void IconScaleAnimation(EventStructs.BalloonReceiveEvent balloonReceivedEvent)
     {
       if (_canAnimate == false) return;
@@ -330,13 +303,8 @@ namespace Assets.__Game.Resources.Scripts.Management
 
       //_winRewardButton.gameObject.SetActive(true);
       _winPerfectText.gameObject.SetActive(true);
-
-      foreach (var particle in _winPerfectParticles)
-      {
-        particle.gameObject.SetActive(true);
-      }
-
-      _winPerfectSound.gameObject.SetActive(true);
+      //_winPerfectSound.gameObject.SetActive(true);
+      _audioSource.PlayOneShot(_winPerfectSound);
     }
 
     private void SwitchAudioVolumeButton()
