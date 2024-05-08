@@ -115,7 +115,6 @@ namespace Assets.__Game.Resources.Scripts.Variant
 
       if (_correctAnswersCounter == _emptyVariantsCounter)
       {
-        Debug.Log("Win");
         EventBus<EventStructs.WinEvent>.Raise(new EventStructs.WinEvent());
 
         StartCoroutine(DoChangeWinLoseGameStateWithDelay(true, 1.5f));
@@ -133,7 +132,6 @@ namespace Assets.__Game.Resources.Scripts.Variant
 
       if (_incorrectAnswerCounter == _emptyVariantsCounter)
       {
-        Debug.Log("Lose");
         EventBus<EventStructs.LoseEvent>.Raise(new EventStructs.LoseEvent());
 
         StartCoroutine(DoChangeWinLoseGameStateWithDelay(false, 0));
