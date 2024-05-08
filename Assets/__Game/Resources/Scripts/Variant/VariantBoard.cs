@@ -116,6 +116,7 @@ namespace Assets.__Game.Resources.Scripts.Variant
       if (_correctAnswersCounter == _emptyVariantsCounter)
       {
         EventBus<EventStructs.WinEvent>.Raise(new EventStructs.WinEvent());
+        EventBus<EventStructs.LevelPointEvent>.Raise(new EventStructs.LevelPointEvent());
 
         StartCoroutine(DoChangeWinLoseGameStateWithDelay(true, 1.5f));
 
