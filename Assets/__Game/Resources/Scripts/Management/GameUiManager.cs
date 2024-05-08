@@ -34,6 +34,8 @@ namespace Assets.__Game.Resources.Scripts.Management
     [SerializeField] private GameObject _gameAngryFaceImage;
     [Space]
     [SerializeField] private Button _gamePauseButton;
+    [Space]
+    [SerializeField] private TextMeshProUGUI _gameTimerText;
     [Header("Game Canvas Animation")]
     [SerializeField] private float _gameImageeIn = 1.3f;
     [SerializeField] private float _gameImageAnimDuration = 0.15f;
@@ -78,6 +80,7 @@ namespace Assets.__Game.Resources.Scripts.Management
     private EventBinding<EventStructs.BalloonSpawnerEvent> _balloonSpawnerEvent;
     private EventBinding<EventStructs.BalloonReceiveEvent> _balloonReceivedEvent;
     private EventBinding<EventStructs.VariantsAssignedEvent> _variantsAssignedEvent;
+    private EventBinding<EventStructs.TimerEvent> _timerEvent;
 
     private void Awake()
     {
@@ -95,6 +98,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(DisplayScore);
       _balloonReceivedEvent = new EventBinding<EventStructs.BalloonReceiveEvent>(IconScaleAnimation);
       _variantsAssignedEvent = new EventBinding<EventStructs.VariantsAssignedEvent>(DisplayLevelCounter);
+      _timerEvent = new EventBinding<EventStructs.TimerEvent>(DisplayTimer);
     }
 
     private void OnDisable()
@@ -105,6 +109,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       _balloonReceivedEvent.Remove(DisplayScore);
       _balloonReceivedEvent.Remove(IconScaleAnimation);
       _variantsAssignedEvent.Remove(DisplayLevelCounter);
+      _timerEvent.Remove(DisplayTimer);
     }
 
     private void Start()
@@ -320,6 +325,11 @@ namespace Assets.__Game.Resources.Scripts.Management
     {
       _pauseAudioOnImage.SetActive(_gameSettings.IsMusicOn);
       _pauseAudioOffImage.SetActive(!_gameSettings.IsMusicOn);
+    }
+
+    private void DisplayTimer(EventStructs.TimerEvent timerEvent)
+    {
+      _gameTimerText.text = $"Час: {timerEvent.Time}";
     }
   }
 }

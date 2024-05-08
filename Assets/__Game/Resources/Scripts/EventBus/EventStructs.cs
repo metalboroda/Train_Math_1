@@ -110,5 +110,12 @@ namespace __Game.Resources.Scripts.EventBus
       public T Data { get; set; }
     }
     #endregion
+
+    #region Timer
+    public struct TimerEvent : IEvent
+    {
+      public int Time;
+    }
+    #endregion
   }
 }
