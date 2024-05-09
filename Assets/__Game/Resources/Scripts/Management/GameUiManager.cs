@@ -4,7 +4,6 @@ using Assets.__Game.Resources.Scripts.LevelItem;
 using Assets.__Game.Resources.Scripts.Settings;
 using Assets.__Game.Scripts.Enums;
 using Assets.__Game.Scripts.Infrastructure;
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
