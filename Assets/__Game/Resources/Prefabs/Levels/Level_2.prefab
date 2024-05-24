@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: _maxTime
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8958000384104972398, guid: a454cc821da5e1b419971d0230763865, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.375
+      objectReference: {fileID: 0}
     - target: {fileID: 8958000384104972399, guid: a454cc821da5e1b419971d0230763865, type: 3}
       propertyPath: _variantItems.Array.data[0].<VariantSprite>k__BackingField
       value: 

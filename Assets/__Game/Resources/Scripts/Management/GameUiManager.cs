@@ -15,14 +15,18 @@ namespace Assets.__Game.Resources.Scripts.Management
   public class GameUiManager : MonoBehaviour
   {
     [SerializeField] private AudioSource _audioSource;
-
+    [Header("Global Canvas")]
+    [SerializeField] private GameObject _globalCanvas;
+    [Space]
+    [SerializeField] private Button _globalAudioBtn;
+    [SerializeField] private GameObject _globalAudioOnImage;
+    [SerializeField] private GameObject _globalAudioOffImage;
     [Header("Quest Canvas")]
     [SerializeField] private GameObject _questCanvas;
     [Space]
     [SerializeField] private TextMeshProUGUI _questLevelCounterText;
     [SerializeField] private TextMeshProUGUI _questCorrectNumbersTxt;
     [SerializeField] private Button _questPlayButton;
-
     [Header("Game Canvas")]
     [SerializeField] private GameObject _gameCanvas;
     [Space]
@@ -35,7 +39,6 @@ namespace Assets.__Game.Resources.Scripts.Management
     [SerializeField] private Button _gamePauseButton;
     [Space]
     [SerializeField] private TextMeshProUGUI _gameTimerText;
-
     [Header("Win Canvas")]
     [SerializeField] private GameObject _winCanvas;
     [Space]
@@ -43,12 +46,11 @@ namespace Assets.__Game.Resources.Scripts.Management
     [SerializeField] private Button _winRewardButton;
     [SerializeField] private GameObject _winPerfectText;
     [SerializeField] private AudioClip _winPerfectSound;
-
     [Header("Lose Canvas")]
     [SerializeField] private GameObject _loseCanvas;
     [Space]
+    [SerializeField] private Button _loseNextLevelBtn;
     [SerializeField] private Button _loseRestartBtn;
-
     [Header("Pause Canvas")]
     [SerializeField] private GameObject _pauseCanvas;
     [Space]
@@ -56,13 +58,10 @@ namespace Assets.__Game.Resources.Scripts.Management
     [SerializeField] private TextMeshProUGUI _pauseCorrectNumbersTxt;
     [SerializeField] private Button _pauseContinueBtn;
     [SerializeField] private Button _pauseRestartButton;
-    [Space]
-    [SerializeField] private Button _pauseAudioBtn;
-    [SerializeField] private GameObject _pauseAudioOnImage;
-    [SerializeField] private GameObject _pauseAudioOffImage;
 
     private readonly List<GameObject> _canvases = new();
     private int _currentLoses;
+    private bool _lastLevel;
 
     private GameBootstrapper _gameBootstrapper;
     private Reward _reward;
@@ -72,6 +71,7 @@ namespace Assets.__Game.Resources.Scripts.Management
     private EventBinding<EventStructs.StateChanged> _stateChanged;
     private EventBinding<EventStructs.VariantsAssignedEvent> _variantsAssignedEvent;
     private EventBinding<EventStructs.TimerEvent> _timerEvent;
+    private EventBinding<EventStructs.LastLevelEvent> _lastLevelEvent;
 
     private void Awake()
     {
@@ -87,6 +87,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged = new EventBinding<EventStructs.StateChanged>(SwitchCanvasesDependsOnState);
       _variantsAssignedEvent = new EventBinding<EventStructs.VariantsAssignedEvent>(DisplayLevelCounter);
       _timerEvent = new EventBinding<EventStructs.TimerEvent>(DisplayTimer);
+      _lastLevelEvent = new EventBinding<EventStructs.LastLevelEvent>(OnLastLevel);
     }
 
     private void OnDisable()
@@ -95,6 +96,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       _stateChanged.Remove(SwitchCanvasesDependsOnState);
       _variantsAssignedEvent.Remove(DisplayLevelCounter);
       _timerEvent.Remove(DisplayTimer);
+      _lastLevelEvent.Remove(OnLastLevel);
     }
 
     private void Start()
@@ -150,6 +152,15 @@ namespace Assets.__Game.Resources.Scripts.Management
       });
 
       // Lose
+      _loseNextLevelBtn.onClick.AddListener(() =>
+      {
+        EventBus<EventStructs.UiButtonEvent>.Raise(new EventStructs.UiButtonEvent
+        {
+          UiEnums = UiEnums.WinNextLevelButton
+        });
+
+        _gameBootstrapper.RestartLevel();
+      });
       _loseRestartBtn.onClick.AddListener(() =>
       {
         EventBus<EventStructs.UiButtonEvent>.Raise(new EventStructs.UiButtonEvent
@@ -172,7 +183,7 @@ namespace Assets.__Game.Resources.Scripts.Management
       {
         _gameBootstrapper.RestartLevel();
       });
-      _pauseAudioBtn.onClick.AddListener(SwitchAudioVolumeButton);
+      _globalAudioBtn.onClick.AddListener(SwitchAudioVolumeButton);
     }
 
     private void AddCanvasesToList()
@@ -207,19 +218,30 @@ namespace Assets.__Game.Resources.Scripts.Management
       switch (state.State)
       {
         case GameQuestState:
+          _globalCanvas.SetActive(true);
           SwitchCanvas(_questCanvas);
           break;
         case GameplayState:
+          _globalCanvas.SetActive(false);
           SwitchCanvas(_gameCanvas);
           break;
         case GameWinState:
+          _globalCanvas.SetActive(true);
           SwitchCanvas(_winCanvas);
           TryToEnableReward();
+
+          if (_lastLevel == true)
+          {
+            _winNextLevelBtn.gameObject.SetActive(false);
+            _loseNextLevelBtn.gameObject.SetActive(false);
+          }
           break;
         case GameLoseState:
+          _globalCanvas.SetActive(true);
           SwitchCanvas(_loseCanvas);
           break;
         case GamePauseState:
+          _globalCanvas.SetActive(true);
           SwitchCanvas(_pauseCanvas);
           break;
       }
@@ -264,13 +286,18 @@ namespace Assets.__Game.Resources.Scripts.Management
 
     private void UpdateAudioButtonVisuals()
     {
-      _pauseAudioOnImage.SetActive(_gameSettings.IsMusicOn);
-      _pauseAudioOffImage.SetActive(!_gameSettings.IsMusicOn);
+      _globalAudioOnImage.SetActive(_gameSettings.IsMusicOn);
+      _globalAudioOffImage.SetActive(!_gameSettings.IsMusicOn);
     }
 
     private void DisplayTimer(EventStructs.TimerEvent timerEvent)
     {
       _gameTimerText.text = $"Час: {timerEvent.Time}";
+    }
+
+    private void OnLastLevel(EventStructs.LastLevelEvent lastLevelEvent)
+    {
+      _lastLevel = lastLevelEvent.LastLevel;
     }
   }
 }
